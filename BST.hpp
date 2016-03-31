@@ -45,7 +45,36 @@ public:
    *  behind this, see the assignment writeup.
    */ // TODO
   virtual bool insert(const Data& item) {
+    //always insert nodes as leaves
+    //use this to access the calling BST object data fields
+    BSTNode<Data> currentNode = this->root;
+    BSTNode<Data> onePrevious = this->root; 
+    //determining if the node should be in left or right subtree of root
+    if( item < this->root->data ){  //should be in left subtree
+      while( currentNode != NULL ){
+        onePrevious = currentNode;
+      
+      if( ((item < currentNode->data)  && (item > currentNode->data)) == true) 
+        return false;
+      else if( item < currentNode->data )
+        currentNode = currentNode->left;
+      else
+        currentNode = currentNode->right;
+      } 
+    
+      if( item < onePrevious->data ){
+        BSTNode<Data> *toAdd = new BSTNode<Data>(item);   
+        toAdd->parent = onePrevious;
+        onePrevious->left = toAdd;
+      } 
 
+      else{
+        BSTNode<Data> *toAdd = new BSTNode<Data>(item);
+        toAdd->parent = onePrevious;
+        onePrevious->right = toAdd;
+      }
+    }
+  
   }
 
 
@@ -64,12 +93,13 @@ public:
   /** Return the number of items currently in the BST.
    */ // TODO
   unsigned int size() const {
-
+    return isize;  //just need to return the variable we keep to store the size
   }
   
   /** Return the height of the BST.
    */ // TODO
   unsigned int height() const {
+    //height is equal to the number of layers minus one
 
   }
 
@@ -77,7 +107,9 @@ public:
   /** Return true if the BST is empty, else false.
    */ // TODO
   bool empty() const {
-
+    if( isize > 0 )
+      return false;
+    return true;
   }
 
   /** Return an iterator pointing to the first item in the BST (not the root).
