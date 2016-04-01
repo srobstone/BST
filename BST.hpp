@@ -50,13 +50,20 @@ public:
   virtual bool insert(const Data& item) {
     //always insert nodes as leaves
     //use this to access the calling BST object data fields
-    BSTNode<Data> currentNode = this->root;
-    BSTNode<Data> onePrevious = this->root; 
+    if( this->root == 0){
+      BSTNode<Data> *toAdd = new BSTNode<Data>(item);
+      this->root = toAdd;
+      isize++;
+      return true;
+    }
+
+    BSTNode<Data> *currentNode = this->root;
+    BSTNode<Data> *onePrevious = this->root; 
     //determining if the node should be in left or right subtree of root
-    while( currentNode != NULL ){
+    while( currentNode != 0 ){
       onePrevious = currentNode;
       
-      if( ((item < currentNode->data)  && (item > currentNode->data)) == true) 
+      if( ((item < currentNode->data)  && ( currentNode->data < item)) == true) 
         return false;
       else if( item < currentNode->data )
         currentNode = currentNode->left;
@@ -69,6 +76,7 @@ public:
       toAdd->parent = onePrevious;
       onePrevious->left = toAdd;
       isize++;
+      return true;
     } 
 
     else{
@@ -76,8 +84,8 @@ public:
       toAdd->parent = onePrevious;
       onePrevious->right = toAdd;
       isize++;
-    }
-  
+      return true;
+    } 
   }
 
 
@@ -91,7 +99,7 @@ public:
   iterator find(const Data& item) const {
     BSTNode<Data> *theNode = this->root;
     
-    while(theNode != NULL){
+    while(theNode != 0){
       //checking to see if the nodes are equal
       if( (theNode->data < item) && (item < theNode->data) == false )
         return BSTIterator<Data>(theNode);
@@ -102,11 +110,14 @@ public:
       else
         theNode = theNode->left;
     }
-
-    if( theNode == NULL )
+    
+    return 0;
+/*
+    if( theNode == 0 )
       return 0;
     else
-      return BSTIterator<Data>(theNode);      
+      return BSTIterator<Data>(theNode); 
+*/     
   }
 
   
@@ -165,7 +176,7 @@ private:
       print current node data
       recursively traverse right sub-tree
     */
-    if( n == NULL )
+    if( n == 0 )
       return;
     inorder(n->left);
     cout << n->data;
@@ -189,7 +200,7 @@ private:
       recursively delete right sub-tree
       delete current node
     */
-  if( n == NULL )
+  if( n == 0 )
     return;
   deleteAll(n->left);
   deleteAll(n->right);

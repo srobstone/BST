@@ -3,6 +3,8 @@
 #include <iostream>
 #include <iomanip>
 
+using namespace std;
+
 template<typename Data>
 class BSTNode {
 
@@ -29,34 +31,39 @@ public:
   BSTNode<Data>* successor() {
     // need to figure out the base cases
     BSTNode<Data> *currentNode = this;
-    BSTNode<Data> *onePrevious = this; 
     
     //node has a right child, so go over once and go all the way left
     if( currentNode->right != NULL )
     {
       currentNode = currentNode->right;
-      while( currentNode->left != NULL )
+      while( currentNode->left != 0 )
         currentNode = currentNode->left;     
       return currentNode;
     }
    
+
     //node has no right child so we have to look up
     else
     {
-      while(true){
-        if( (currentNode->parent == NULL ) ) 
-          return 0;
-       
+      while(1){ //change back to true if no
+        //if( (currentNode->parent ==  ) ) 
+        //  return 0;
+
         //if the node has no right child and is the left child of parent then
         //the parent is the successor
-        else if ( currentNode == currentNode->parent->left )
-          return currentNode->parent;  
-      
+        if ( currentNode == currentNode->parent->left )
+        {  
+          cout <<"ss"<< currentNode->parent->data << endl;
+          return currentNode->parent; 
+        }
         //the node has no right child and IS the right child of parent
-        else
-          currentNode = currentNode->parent;        
+        else if( currentNode == currentNode->parent->right )
+        {          
+          cout <<"ss"<< currentNode->parent->data << endl;
+          currentNode = currentNode->parent;
+        }
      }  
- 
+
    }
  }    
 }; 
