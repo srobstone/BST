@@ -4,6 +4,8 @@
 #include "BSTIterator.hpp"
 #include <iostream>
 
+using namespace std;
+
 template<typename Data>
 class BST {
 
@@ -26,14 +28,15 @@ public:
   /** Default constructor.
       Initialize an empty BST.
    */
-  BST() : root(nullptr), isize(0), iheight(0) {  }
+  //change back to nullptr: that was the original parameter
+  BST() : root(0), isize(0), iheight(0) {  }
 
 
   /** Default destructor.
       Delete every node in this BST.
    */ // TODO
   virtual ~BST() {
-
+   deleteAll(this->root); 
   }
 
   /** Given a reference to a Data item, insert a copy of it in this BST.
@@ -50,9 +53,8 @@ public:
     BSTNode<Data> currentNode = this->root;
     BSTNode<Data> onePrevious = this->root; 
     //determining if the node should be in left or right subtree of root
-    if( item < this->root->data ){  //should be in left subtree
-      while( currentNode != NULL ){
-        onePrevious = currentNode;
+    while( currentNode != NULL ){
+      onePrevious = currentNode;
       
       if( ((item < currentNode->data)  && (item > currentNode->data)) == true) 
         return false;
@@ -60,19 +62,20 @@ public:
         currentNode = currentNode->left;
       else
         currentNode = currentNode->right;
-      } 
+    } 
     
-      if( item < onePrevious->data ){
-        BSTNode<Data> *toAdd = new BSTNode<Data>(item);   
-        toAdd->parent = onePrevious;
-        onePrevious->left = toAdd;
-      } 
+    if( item < onePrevious->data ){
+      BSTNode<Data> *toAdd = new BSTNode<Data>(item);   
+      toAdd->parent = onePrevious;
+      onePrevious->left = toAdd;
+      isize++;
+    } 
 
-      else{
-        BSTNode<Data> *toAdd = new BSTNode<Data>(item);
-        toAdd->parent = onePrevious;
-        onePrevious->right = toAdd;
-      }
+    else{
+      BSTNode<Data> *toAdd = new BSTNode<Data>(item);
+      toAdd->parent = onePrevious;
+      onePrevious->right = toAdd;
+      isize++;
     }
   
   }
@@ -86,21 +89,38 @@ public:
    *  behind this, see the assignment writeup.
    */ // TODO
   iterator find(const Data& item) const {
+    BSTNode<Data> *theNode = this->root;
+    
+    while(theNode != NULL){
+      //checking to see if the nodes are equal
+      if( (theNode->data < item) && (item < theNode->data) == false )
+        return BSTIterator<Data>(theNode);
 
+      else if( theNode->data < item )
+        theNode = theNode->right;
+      
+      else
+        theNode = theNode->left;
+    }
+
+    if( theNode == NULL )
+      return 0;
+    else
+      return BSTIterator<Data>(theNode);      
   }
 
   
   /** Return the number of items currently in the BST.
    */ // TODO
   unsigned int size() const {
-    return isize;  //just need to return the variable we keep to store the size
+    return this->isize;  //just need to return the variable we keep to store the size
   }
   
   /** Return the height of the BST.
    */ // TODO
   unsigned int height() const {
     //height is equal to the number of layers minus one
-
+    return this->iheight;
   }
 
 
@@ -115,7 +135,7 @@ public:
   /** Return an iterator pointing to the first item in the BST (not the root).
    */ // TODO
   iterator begin() const {
-
+   return BSTIterator<Data>(first(this->root)); 
   }
 
   /** Return an iterator pointing past the last item in the BST.
@@ -145,6 +165,11 @@ private:
       print current node data
       recursively traverse right sub-tree
     */
+    if( n == NULL )
+      return;
+    inorder(n->left);
+    cout << n->data;
+    inorder(n->right);
   }
 
   /** Find the first element of the BST
@@ -164,6 +189,11 @@ private:
       recursively delete right sub-tree
       delete current node
     */
+  if( n == NULL )
+    return;
+  deleteAll(n->left);
+  deleteAll(n->right);
+  delete(n);
   }
 
 
