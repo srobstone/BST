@@ -140,5 +140,34 @@ int main() {
 
    cout << "OK" << endl;
 
+
+   cout << "Testing insert on data that already exists" << endl;
+   
+   BST<int> bt;
+
+   bt.insert(1);
+   bt.insert(200);
+   bt.insert(3);
+   bt.insert(-31);
+   bt.insert(100);
+   bool forFive;
+   forFive = bt.insert(5);
+   bool for100;
+   for100 = bt.insert(100);
+
+
+
+   if( forFive == false ){
+     cout << "Error inserting 5. Got :" << forFive << endl;
+     return -1;
+   }
+   
+   if( for100  == true){
+     cout << "Error inserting 100. Got: " << for100 << endl;
+     return -1;
+   }
+
+   cout << "OK" << endl;
+
   return 0;
 }

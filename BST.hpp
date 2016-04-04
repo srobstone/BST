@@ -1,3 +1,13 @@
+/***
+ * Name: Steven R Stone, A99405998, cs100sft             
+ * Date: Apr 04 2016
+ * Filename: BST.hpp
+ * Description: This class constructs the BST container for storing data
+ *              and provides an interator pattern to traverse the container.
+ * Sources of help: Tutors
+ ***/
+
+
 #ifndef BST_HPP
 #define BST_HPP
 #include "BSTNode.hpp"
@@ -28,13 +38,12 @@ public:
   /** Default constructor.
       Initialize an empty BST.
    */
-  //change back to nullptr: that was the original parameter
   BST() : root(0), isize(0), iheight(0) {  }
 
 
   /** Default destructor.
       Delete every node in this BST.
-   */ // TODO
+   */ 
   virtual ~BST() {
    deleteAll(this->root); 
   }
@@ -46,10 +55,10 @@ public:
    *  Note: This function should use only the '<' operator when comparing
    *  Data items. (should not use ==, >, <=, >=)  For the reasoning
    *  behind this, see the assignment writeup.
-   */ // TODO
+   */ 
   virtual bool insert(const Data& item) {
-    //always insert nodes as leaves
-    //use this to access the calling BST object data fields
+    
+    //handling the case where no nodes exist yet
     if( this->root == 0){
       BSTNode<Data> *toAdd = new BSTNode<Data>(item);
       this->root = toAdd;
@@ -59,33 +68,34 @@ public:
 
     BSTNode<Data> *currentNode = this->root;
     BSTNode<Data> *onePrevious = this->root; 
+    
     //determining if the node should be in left or right subtree of root
     while( currentNode != 0 ){
       onePrevious = currentNode;
-      
-      if( ((item < currentNode->data)  && ( currentNode->data < item)) == true)
-        return false;
-      else if( item < currentNode->data )
+   
+      if( item < currentNode->data)
         currentNode = currentNode->left;
-      else
+      else if( currentNode->data < item )
         currentNode = currentNode->right;
+      else
+        return false;
     } 
     
+    //inserts the new node as a left child
     if( item < onePrevious->data ){
       BSTNode<Data> *toAdd = new BSTNode<Data>(item);   
       toAdd->parent = onePrevious;
       onePrevious->left = toAdd;
       isize++;
-      //cout << "the new nodes parent is: " << toAdd->parent->data << endl;
       return true;
     } 
 
+    //inserts the new node as a right child
     else{
       BSTNode<Data> *toAdd = new BSTNode<Data>(item);
       toAdd->parent = onePrevious;
       onePrevious->right = toAdd;
       isize++;
-      //cout <<  new nodes parent is: " << toAdd->parent-> << endl;
       return true;
     } 
   }
@@ -97,14 +107,13 @@ public:
    *  Note: This function should use only the '<' operator when comparing
    *  Data items. (should not use ==, >, <=, >=).  For the reasoning
    *  behind this, see the assignment writeup.
-   */ // TODO
+   */ 
   iterator find(const Data& item) const {
     BSTNode<Data> *theNode = this->root;
     
     while(theNode != 0){
       //checking to see if the nodes are equal
       if(( (theNode->data < item) && (item < theNode->data)) == false ){
-	//cout << "theNode is: " << theNode->data << endl;
         BSTNode<Data> *toAdd = new BSTNode<Data>(item);
         return BSTIterator<Data>(toAdd);
 }
@@ -168,16 +177,10 @@ private:
       Implementing inorder and deleteAll base on the pseudo code is an easy way to get started.
    */ // TODO
   void inorder(BSTNode<Data>* n) const {
-    /* Pseudo Code:
-      if current node is null: return;
-      recursively traverse left sub-tree
-     print current node data
-      recursively traverse right sub-tree
-    */
-    if( n == 0 )
+    if(n == 0 )
       return;
     inorder(n->left);
-    cout << n->data;
+    cout << n->data << endl;
     inorder(n->right);
   }
 
@@ -192,21 +195,13 @@ private:
   /** do a postorder traversal, deleting nodes
    */ // TODO
   static void deleteAll(BSTNode<Data>* n) {
-    /* Pseudo Code:
-      if current node is null: return;
-      recursively delete left sub-tree
-      recursively delete right sub-tree
-      delete current node
-    */
-  if( n == 0 )
-    return;
-  deleteAll(n->left);
-  deleteAll(n->right);
-  delete(n);
+    if( n == 0 )
+      return;
+    deleteAll(n->left);
+    deleteAll(n->right);
+    delete(n);
   }
 
 
  };
-
-
 #endif //BST_HPP
