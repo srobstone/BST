@@ -1,4 +1,5 @@
 #include "BST.hpp"
+
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -74,11 +75,57 @@ int main(int argc, char* argv[])
 
 	//TODO 
 	//main function implementation should go here
-	
+    //create the BST to hold everything
+
+    BST<string> b;
+
+    while(!in.eof()){
+      getline(in, name);
+      b.insert(name);       
+    }
+    size = b.size(); 
+    cout << "Size of tree: " << size << "\n"; 
+
+    height = b.height();
+    cout << "Height of tree: " << height << "\n";
+
+    while(1){
+      cout << "Enter actor/actress name: " << "\n";
+      cin >> name;
+
+      if( (b.find(name)) != 0 )
+        cout << name << " found!" << "\n";
+
+      else if( (b.find(name)) == 0 )
+        cout << name << " NOT found" << "\n";
+
+      cout << "Search again? (y/n)" << "\n";
+
+      string toCont = "";
+      cin >> toCont;
+
+      if( toCont == "n" )
+        break; 
+
+    } 
+   
+    /* 
+    BST<string>::iterator en = b.end();
+    BST<string>::iterator it = b.begin();
+    for(; it != en; ++it){
+      cout << *it << endl;
+    }    
+    */
+     
+
+
+
+
 	if(in.is_open())
 	{
 		in.close();
 	}
-	
+
+
 	return 0;
 }

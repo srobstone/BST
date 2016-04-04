@@ -1,5 +1,15 @@
+/***
+ * Name: Steven R Stone, A99405998, cs100sft              
+ * Date: Apr 02 2016
+ * Filename: BSTNode.hpp
+ * Description: This file will be used as the Node objects that will populate
+ *              our BST object.     
+ * Sources of help: Tutors.
+ ***/
+
 #ifndef BSTNODE_HPP
 #define BSTNODE_HPP
+
 #include <iostream>
 #include <iomanip>
 
@@ -20,50 +30,42 @@ public:
   BSTNode<Data>* left;
   BSTNode<Data>* right;
   BSTNode<Data>* parent;
-  Data const data;   // the const Data in this node.
+  Data const data;
 
   /** Return the successor of this BSTNode in a BST, or 0 if none.
+   ** 
    ** PRECONDITION: this BSTNode is a node in a BST.
    ** POSTCONDITION:  the BST is unchanged.
    ** RETURNS: the BSTNode that is the successor of this BSTNode,
    ** or 0 if there is none.
-   */ // TODO
+   */ 
   BSTNode<Data>* successor() {
-    // need to figure out the base cases
+    
     BSTNode<Data> *currentNode = this;
     
     //node has a right child, so go over once and go all the way left
     if( currentNode->right != NULL )
     {
       currentNode = currentNode->right;
-      while( currentNode->left != 0 )
-        currentNode = currentNode->left;     
+      while( currentNode->left != 0 ){
+        currentNode = currentNode->left;
+      }
       return currentNode;
     }
    
-
     //node has no right child so we have to look up
     else
     {
-      while(1){ //change back to true if no
-        //if( (currentNode->parent ==  ) ) 
-        //  return 0;
-
-        //if the node has no right child and is the left child of parent then
-        //the parent is the successor
-        if ( currentNode == currentNode->parent->left )
-        {  
-          cout <<"ss"<< currentNode->parent->data << endl;
+      while(currentNode->parent != NULL){
+        
+        if ( currentNode == currentNode->parent->left )  
           return currentNode->parent; 
-        }
-        //the node has no right child and IS the right child of parent
-        else if( currentNode == currentNode->parent->right )
-        {          
-          cout <<"ss"<< currentNode->parent->data << endl;
+        
+        else if( currentNode == currentNode->parent->right )          
           currentNode = currentNode->parent;
-        }
      }  
-
+    
+    return 0;
    }
  }    
 }; 

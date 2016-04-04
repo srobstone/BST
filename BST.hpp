@@ -63,7 +63,7 @@ public:
     while( currentNode != 0 ){
       onePrevious = currentNode;
       
-      if( ((item < currentNode->data)  && ( currentNode->data < item)) == true) 
+      if( ((item < currentNode->data)  && ( currentNode->data < item)) == true)
         return false;
       else if( item < currentNode->data )
         currentNode = currentNode->left;
@@ -76,6 +76,7 @@ public:
       toAdd->parent = onePrevious;
       onePrevious->left = toAdd;
       isize++;
+      //cout << "the new nodes parent is: " << toAdd->parent->data << endl;
       return true;
     } 
 
@@ -84,6 +85,7 @@ public:
       toAdd->parent = onePrevious;
       onePrevious->right = toAdd;
       isize++;
+      //cout <<  new nodes parent is: " << toAdd->parent-> << endl;
       return true;
     } 
   }
@@ -101,9 +103,11 @@ public:
     
     while(theNode != 0){
       //checking to see if the nodes are equal
-      if( (theNode->data < item) && (item < theNode->data) == false )
-        return BSTIterator<Data>(theNode);
-
+      if(( (theNode->data < item) && (item < theNode->data)) == false ){
+	//cout << "theNode is: " << theNode->data << endl;
+        BSTNode<Data> *toAdd = new BSTNode<Data>(item);
+        return BSTIterator<Data>(toAdd);
+}
       else if( theNode->data < item )
         theNode = theNode->right;
       
@@ -111,13 +115,7 @@ public:
         theNode = theNode->left;
     }
     
-    return 0;
-/*
-    if( theNode == 0 )
-      return 0;
-    else
-      return BSTIterator<Data>(theNode); 
-*/     
+    return theNode; //change pack to 0 if breaks
   }
 
   

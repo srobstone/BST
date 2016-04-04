@@ -29,7 +29,6 @@ int main() {
   /* Insert a few data items. */
   vector<int>::iterator vit = v.begin();
   vector<int>::iterator ven = v.end();
-
   for(; vit != ven; ++vit) {
     // all these inserts are unique, so should return a std::pair
     // with second part true
@@ -39,8 +38,7 @@ int main() {
       return -1;
     }
   }
-
-
+  cout<< "Testing insert done"<< endl;
   /* Test size. */
 
   cout << "Size is: " << b.size() << endl;
@@ -52,17 +50,20 @@ int main() {
 
   /* Test find return value. */
 
+  cout << "Testing find return value on first BST" << endl;
+
   vit = v.begin();
   for(; vit != ven; ++vit) {
+    //cout << "current vit is: " << *vit << endl;
     if(*(b.find(*vit)) != *vit) {
       cout << "Incorrect return value when finding " << *vit << endl;
       return -1;
     }
   }
-
-
-  
-  /* Sort the vector, to compare with inorder iteration on the BST */
+ 
+  cout << "OK" << endl;
+ 
+  /*Sort the vector, to compare with inorder iteration on the BST */
   sort(v.begin(),v.end());
 
 
@@ -105,31 +106,39 @@ int main() {
   for(; vnit != vn.end(); vnit++)
     {
       b2.insert(*vnit);
-	  names.insert(*vnit);
+          names.insert(*vnit);
     }
-	
+  
+  cout << "Testing 2nd BST traversal" << endl;
+       
   /* Traverse 2nd BST in order */
   set<std::string>::iterator nit = names.begin();
-  BST<std::string>::iterator bit = b2.begin();
-  for(; bit != b2.end(); bit++)
+  BST<std::string>::iterator bit = b2.begin(); 
+ for(; bit != b2.end(); bit++)
     {
       cout << *bit << "\n";
-	  if(*nit != *bit)
-	  {
-		cout << "Error. Expected: " << *nit << "\n";
-		return -1;
-	  }
-	  nit++;
+          if(*nit != *bit)
+          {
+        	cout << "Error. Expected: " << *nit << "\n";
+        	return -1;
+          }
+          nit++;
     }
-	
-	/* Test find for 2nd BST */
-	vnit = vn.begin();
-    for(; vnit != vn.end(); ++vnit) {
-    if(*(b2.find(*vnit)) != *vnit) {
+   cout << "OK" << endl;
+
+ 
+   cout << "Testing find for 2nd BST" << endl;   
+    
+   /* Test find for 2nd BST */
+   vnit = vn.begin();
+   for(; vnit != vn.end(); ++vnit) {
+     if(*(b2.find(*vnit)) != *vnit) {
       cout << "Incorrect return value when finding " << *vnit << endl;
       return -1;
-    }
-  }
+     }
+   }
+
+   cout << "OK" << endl;
 
   return 0;
 }

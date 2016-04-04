@@ -3,7 +3,7 @@
 #include "BSTNode.hpp"
 #include <list>
 #include <iterator>
-
+using namespace std;
 template<typename Data>
 class BSTIterator : public std::iterator<std::input_iterator_tag,Data> {
 
@@ -22,6 +22,7 @@ public:
 
   /** Dereference operator. */
   Data operator*() const {
+    //cout << "curr->data is : " << curr->data << endl;
     return curr->data;
   }
   
@@ -40,24 +41,24 @@ public:
 
   /** Equality test operator. */ // TODO
   bool operator==(BSTIterator<Data> const & other) const {
-    if(this == NULL && other == NULL)
-      return true;
-    else if((this->curr == NULL && other.curr != NULL) || (this->curr != NULL && other.curr == NULL))
-      return false;
-    else if( this->curr->data == other.curr->data )
-      return true;
-    return false; 
+    return other.curr == curr;
   }
 
   /** Inequality test operator. */ // TODO
   bool operator!=(BSTIterator<Data> const & other) const {
-    if(this == NULL && other == NULL)
+    /*
+    if( this == NULL && other == NULL )
       return false;
-    else if((this->curr == NULL && other.curr != NULL) || (this->curr != NULL && other.curr == NULL))
+    else if( (this == NULL && other != NULL) || (this != NULL && other == NULL) )
       return true;
-    else if( ((this->curr->data < other.curr->data ) && (other.curr->data < this->curr->data ))== false)
+    else if( this->curr == NULL || other.curr == NULL )
       return false;
-    return true; 
+    else if( ((this->curr->data < other.curr->data) == false ) && (other.curr->data < this->curr->data) == false )
+      return false;
+    else
+      return true;
+    */
+    return curr != other.curr;
   }
 
 };
