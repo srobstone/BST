@@ -171,7 +171,7 @@ private:
     /* Pseudo Code:
       if current node is null: return;
       recursively traverse left sub-tree
-      print current node data
+     print current node data
       recursively traverse right sub-tree
     */
     if( n == 0 )

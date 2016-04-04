@@ -23,7 +23,7 @@ public:
   /** Constructor.  Initialize a BSTNode with the given Data item,
    *  no parent, and no children.
    */
-  BSTNode(const Data & d) : data(d) {
+  BSTNode( const Data & d) : data(d) { //change back to const
     left = right = parent = 0;
   }
 

@@ -1,0 +1,54 @@
+/***
+ * Name: Steven R Stone, A99405998, cs100sft              
+ * Date: Apr 04 2016
+ * Filename: CheckpointQuestions.txt
+ * Description: This document answers the checkpoint questions from
+ *              the website.     
+ * Sources of help: 
+ ***/
+
+
+
+
+Question #1:In the file BSTNode.hpp you can see that the signature of the
+            constructor is
+
+            BSTNode(const Data & d) : data(d)
+
+            Explain why parameter d must be a constant lvalue reference, rather
+            than just a non-constant lvalue reference (assuming we do not have
+            another overloaded construtor).
+
+-------------------------------------------------------------------------------
+Answer #1:  The reason that the parameter d has to be a constant lvalue refer-
+            ence is because we defined the data within our BSTNode class be to
+            cosntant. Without defining d to be a constant reference, we would 
+            theorectialy be able to change the data field within the BSTNodes. 
+            By defining d to be a const reference we ensure that the data will
+            not be able to be changed through our new reference d.
+
+
+
+
+
+Question #2: Notice that the BSTIterator class overloads both the pre-increment
+             and the post-increment operators. Why does the post-increment 
+             operator take an argument? And why does the post-increment
+             operator return a copy of the BSTIterator while the pre-increment
+             operator returns a reference?
+
+-------------------------------------------------------------------------------
+Answer #2:   The post-increment operator takes an argument because both the 
+             post and pre increment operators (++) look the same so the int
+             parameter in post-increment serveres as a dummy parameter to 
+             distinguish the two operators. The reason that the post-increment
+             operator returns a copy of the BSTIterator is because with post-
+             increment we need to return the state of the BST object before
+             incrementing the iterator. This requires that we return an object
+             and not a reference because we can't return a reference to a local
+             variable that will be destoryed when the function (post-increment)
+             ends. Furthermore, the pre-increment operator returns a reference
+             because we don't have to return the state of the BST object before
+             pre-incrementing; by updating the member variable through
+             curr = curr->successor(), we only need to return the modified BST
+             object and that can be done through a reference.  
