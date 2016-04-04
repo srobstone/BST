@@ -45,7 +45,9 @@ public:
       Delete every node in this BST.
    */ 
   virtual ~BST() {
-   deleteAll(this->root); 
+   deleteAll(this->root);
+   isize = 0;
+   iheight = 0; 
   }
 
   /** Given a reference to a Data item, insert a copy of it in this BST.
@@ -112,19 +114,15 @@ public:
     BSTNode<Data> *theNode = this->root;
     
     while(theNode != 0){
-      //checking to see if the nodes are equal
-      if(( (theNode->data < item) && (item < theNode->data)) == false ){
-        BSTNode<Data> *toAdd = new BSTNode<Data>(item);
-        return BSTIterator<Data>(toAdd);
-}
-      else if( theNode->data < item )
+      if( theNode->data < item )
         theNode = theNode->right;
-      
-      else
+      else if( item < theNode->data )
         theNode = theNode->left;
+      else{
+        return BST<Data>::iterator(theNode);
+      }
     }
-    
-    return theNode; //change pack to 0 if breaks
+    return 0; //change pack to 0 if break
   }
 
   

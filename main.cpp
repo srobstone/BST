@@ -79,10 +79,11 @@ int main(int argc, char* argv[])
 
     BST<string> b;
 
-    while(!in.eof()){
+    while(in.peek() != EOF){
       getline(in, name);
       b.insert(name);       
     }
+    
     size = b.size(); 
     cout << "Size of tree: " << size << "\n"; 
 
@@ -90,25 +91,31 @@ int main(int argc, char* argv[])
     cout << "Height of tree: " << height << "\n";
 
     while(1){
-      cout << "Enter actor/actress name: " << "\n";
-      cin >> name;
+      cout << "Enter actor/actress name: " << "\n"; 
+      getline(cin, name);
 
-      if( (b.find(name)) != 0 )
+      cout << "The name to search is: " << name << endl;
+ 
+      BST<string>::iterator toFind = b.find(name);
+      //cout << "toFind value is: " << *toFind << endl;
+
+      
+      if( toFind != 0 )
         cout << name << " found!" << "\n";
 
-      else if( (b.find(name)) == 0 )
+      else
         cout << name << " NOT found" << "\n";
 
       cout << "Search again? (y/n)" << "\n";
 
       string toCont = "";
       cin >> toCont;
-
+    
       if( toCont == "n" )
         break; 
 
-    } 
-   
+    }  
+    
     /* 
     BST<string>::iterator en = b.end();
     BST<string>::iterator it = b.begin();
@@ -117,10 +124,6 @@ int main(int argc, char* argv[])
     }    
     */
      
-
-
-
-
 	if(in.is_open())
 	{
 		in.close();

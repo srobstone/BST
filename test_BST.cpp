@@ -126,10 +126,10 @@ int main() {
     }
    cout << "OK" << endl;
 
- 
+
    cout << "Testing find for 2nd BST" << endl;   
     
-   /* Test find for 2nd BST */
+   // Test find for 2nd BST 
    vnit = vn.begin();
    for(; vnit != vn.end(); ++vnit) {
      if(*(b2.find(*vnit)) != *vnit) {
