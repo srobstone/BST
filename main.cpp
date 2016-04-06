@@ -93,14 +93,8 @@ int main(int argc, char* argv[])
     while(1){
       cout << "Enter actor/actress name: " << "\n"; 
       getline(cin, name);
-
-      cout << "The name to search is: " << name << endl;
  
-      BST<string>::iterator toFind = b.find(name);
-      //cout << "toFind value is: " << *toFind << endl;
-
-      
-      if( toFind != 0 )
+      if( (b.find(name) != (b.end())) )
         cout << name << " found!" << "\n";
 
       else
@@ -109,21 +103,13 @@ int main(int argc, char* argv[])
       cout << "Search again? (y/n)" << "\n";
 
       string toCont = "";
-      cin >> toCont;
+      getline(cin, toCont);
     
       if( toCont == "n" )
         break; 
 
     }  
     
-    /* 
-    BST<string>::iterator en = b.end();
-    BST<string>::iterator it = b.begin();
-    for(; it != en; ++it){
-      cout << *it << endl;
-    }    
-    */
-     
 	if(in.is_open())
 	{
 		in.close();

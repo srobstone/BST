@@ -136,7 +136,8 @@ public:
    */ // TODO
   unsigned int height() const {
     //height is equal to the number of layers minus one
-    return this->iheight;
+   return findHeight(this->root); 
+    
   }
 
 
@@ -201,5 +202,13 @@ private:
   }
 
 
+   static unsigned int findHeight(BSTNode<Data> *theNode){
+    if( theNode == 0 )
+      return -1;  //return -1 because we want to count the number of points not
+                  //nodes
+    else{
+      return max(findHeight(theNode->left), findHeight(theNode->right)) + 1;
+    }
+  }
  };
 #endif //BST_HPP
