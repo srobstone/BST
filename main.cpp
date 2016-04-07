@@ -1,5 +1,4 @@
 #include "BST.hpp"
-
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -72,15 +71,19 @@ int main(int argc, char* argv[])
 
 	//Resets the stream to beginning of file
 	in.seekg(0, ios_base::beg); 
-
-	//TODO 
+ 
 	//main function implementation should go here
     //create the BST to hold everything
 
     BST<string> b;
 
     while(in.peek() != EOF){
-      getline(in, name);
+      string tmp = "";
+      getline(in, tmp);
+      
+      tmp.erase(std::remove(tmp.begin(), tmp.end(), ','), tmp.end());
+
+      name = tmp;
       b.insert(name);       
     }
     
@@ -93,7 +96,7 @@ int main(int argc, char* argv[])
     while(1){
       cout << "Enter actor/actress name: " << "\n"; 
       getline(cin, name);
- 
+      
       if( (b.find(name) != (b.end())) )
         cout << name << " found!" << "\n";
 

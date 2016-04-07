@@ -84,11 +84,12 @@ public:
     } 
     
     //inserts the new node as a left child
-    if( item < onePrevious->data ){
+    if( item < onePrevious->data ){  //change back to onePrevious
       BSTNode<Data> *toAdd = new BSTNode<Data>(item);   
       toAdd->parent = onePrevious;
       onePrevious->left = toAdd;
       isize++;
+      //cout << *toAdd << endl;
       return true;
     } 
 
@@ -98,6 +99,7 @@ public:
       toAdd->parent = onePrevious;
       onePrevious->right = toAdd;
       isize++;
+      //cout << *toAdd << endl;
       return true;
     } 
   }
@@ -201,14 +203,18 @@ private:
     delete(n);
   }
 
+   static int findHeight(BSTNode<Data> *theNode){
+     if( theNode == 0 )
+       return -1;
+     
+     int heightOfLeft = findHeight(theNode->left);
+     int heightOfRight = findHeight(theNode->right);
 
-   static unsigned int findHeight(BSTNode<Data> *theNode){
-    if( theNode == 0 )
-      return -1;  //return -1 because we want to count the number of points not
-                  //nodes
-    else{
-      return max(findHeight(theNode->left), findHeight(theNode->right)) + 1;
-    }
-  }
+     if( heightOfRight < heightOfLeft )
+       return heightOfLeft + 1;
+     else
+       return heightOfRight + 1; 
+   }
+  
  };
 #endif //BST_HPP
