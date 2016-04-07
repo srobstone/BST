@@ -218,7 +218,7 @@ private:
    ***/
    static int findHeight(BSTNode<Data> *theNode){
      if( theNode == 0 )
-       return 0; //has to be -1 because we are counting the amount of links
+       return -1; //has to be -1 because we are counting the amount of links
                   //not the number of nodes
      
      int heightOfLeft = findHeight(theNode->left);
