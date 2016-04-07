@@ -203,13 +203,28 @@ private:
     delete(n);
   }
 
+   /***
+   * Function name: findHeight         
+   * Function Prototype: static int findHeight(BSTNode<Data> *theNode)
+   * Description: This function determines the height of a tree by 
+   *              recursively traversing the left and right subtrees.        
+   * Parameters: BSTNode<Data> *theNode
+   *             -the node to start traversing from; this function will only
+   *              ever be called passing the root as *theNode
+   * Side Effects: Doesn't manipulate the BST, just determines the height.
+   * Error Conditions: None.   
+   * Returns: Returns an int
+   *          -the int is the height of the tree            
+   ***/
    static int findHeight(BSTNode<Data> *theNode){
      if( theNode == 0 )
-       return -1;
+       return 0; //has to be -1 because we are counting the amount of links
+                  //not the number of nodes
      
      int heightOfLeft = findHeight(theNode->left);
      int heightOfRight = findHeight(theNode->right);
 
+     /* Determining if left or right subtree has larger height value */
      if( heightOfRight < heightOfLeft )
        return heightOfLeft + 1;
      else
