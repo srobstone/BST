@@ -1,3 +1,12 @@
+/***
+ * Name: Steven R Stone, A99405998, cs100sft
+ * Date: Apr 07 2016
+ * Filename: BSTIterator.hpp
+ * Description: This iterator class will be used to iterate and traverse 
+ *              the BST object. 
+ * Sources of help: N/A
+ ***/
+
 #ifndef BSTITERATOR_HPP
 #define BSTITERATOR_HPP
 #include "BSTNode.hpp"
@@ -15,14 +24,13 @@ public:
 
   /** Constructor.  Use the argument to initialize the current BSTNode
    *  in this BSTIterator.
-   */ // TODO
+   */ 
   BSTIterator(BSTNode<Data>* curr) {
    this->curr = curr; 
   }
 
   /** Dereference operator. */
   Data operator*() const {
-    //cout << "curr->data is : " << curr->data << endl;
     return curr->data;
   }
   
@@ -39,28 +47,15 @@ public:
     return before;
   }
 
-  /** Equality test operator. */ // TODO
+  /** Equality test operator. */ 
   bool operator==(BSTIterator<Data> const & other) const {
     return other.curr == curr;
   }
 
-  /** Inequality test operator. */ // TODO
+  /** Inequality test operator. */
   bool operator!=(BSTIterator<Data> const & other) const {
-    /*
-    if( this == NULL && other == NULL )
-      return false;
-    else if( (this == NULL && other != NULL) || (this != NULL && other == NULL) )
-      return true;
-    else if( this->curr == NULL || other.curr == NULL )
-      return false;
-    else if( ((this->curr->data < other.curr->data) == false ) && (other.curr->data < this->curr->data) == false )
-      return false;
-    else
-      return true;
-    */
     return curr != other.curr;
   }
 
 };
-
 #endif //BSTITERATOR_HPP

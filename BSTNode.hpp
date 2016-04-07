@@ -23,7 +23,7 @@ public:
   /** Constructor.  Initialize a BSTNode with the given Data item,
    *  no parent, and no children.
    */
-  BSTNode( const Data & d) : data(d) { //change back to const
+  BSTNode( const Data & d) : data(d) { 
     left = right = parent = 0;
   }
 
@@ -44,7 +44,7 @@ public:
     BSTNode<Data> *currentNode = this;
     
     //node has a right child, so go over once and go all the way left
-    if( currentNode->right != NULL )
+    if( currentNode->right != 0 )
     {
       currentNode = currentNode->right;
       while( currentNode->left != 0 ){
@@ -56,7 +56,7 @@ public:
     //node has no right child so we have to look up
     else
     {
-      while(currentNode->parent != NULL){
+      while( currentNode->parent != 0 ){
         
         if ( currentNode == currentNode->parent->left )  
           return currentNode->parent; 
@@ -65,7 +65,7 @@ public:
           currentNode = currentNode->parent;
      }  
     
-    return 0;
+    return 0; //no successor is found so we just return null
    }
  }    
 }; 

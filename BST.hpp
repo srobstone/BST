@@ -7,7 +7,6 @@
  * Sources of help: Tutors
  ***/
 
-
 #ifndef BST_HPP
 #define BST_HPP
 #include "BSTNode.hpp"
@@ -46,8 +45,6 @@ public:
    */ 
   virtual ~BST() {
    deleteAll(this->root);
-   isize = 0;
-   iheight = 0; 
   }
 
   /** Given a reference to a Data item, insert a copy of it in this BST.
@@ -61,7 +58,7 @@ public:
   virtual bool insert(const Data& item) {
     
     //handling the case where no nodes exist yet
-    if( this->root == 0){
+    if( this->root == 0 ){
       BSTNode<Data> *toAdd = new BSTNode<Data>(item);
       this->root = toAdd;
       isize++;
@@ -75,7 +72,7 @@ public:
     while( currentNode != 0 ){
       onePrevious = currentNode;
    
-      if( item < currentNode->data)
+      if( item < currentNode->data )
         currentNode = currentNode->left;
       else if( currentNode->data < item )
         currentNode = currentNode->right;
@@ -89,7 +86,6 @@ public:
       toAdd->parent = onePrevious;
       onePrevious->left = toAdd;
       isize++;
-      //cout << *toAdd << endl;
       return true;
     } 
 
@@ -99,7 +95,6 @@ public:
       toAdd->parent = onePrevious;
       onePrevious->right = toAdd;
       isize++;
-      //cout << *toAdd << endl;
       return true;
     } 
   }
@@ -115,36 +110,37 @@ public:
   iterator find(const Data& item) const {
     BSTNode<Data> *theNode = this->root;
     
-    while(theNode != 0){
+    while( theNode != 0 ){
       if( theNode->data < item )
         theNode = theNode->right;
       else if( item < theNode->data )
         theNode = theNode->left;
-      else{
+      else
         return BST<Data>::iterator(theNode);
-      }
     }
-    return 0; //change pack to 0 if break
+
+    return BST<Data>::iterator(0); //0 because the item wasn't found
   }
 
   
   /** Return the number of items currently in the BST.
-   */ // TODO
+   */ 
   unsigned int size() const {
-    return this->isize;  //just need to return the variable we keep to store the size
+    return this->isize;  
   }
   
   /** Return the height of the BST.
-   */ // TODO
+   */ 
   unsigned int height() const {
-    //height is equal to the number of layers minus one
-   return findHeight(this->root); 
-    
+   int tmp = 0;
+   tmp = findHeight(this->root);
+   //this->iheight = tmp;
+   return tmp; 
   }
 
 
   /** Return true if the BST is empty, else false.
-   */ // TODO
+   */ 
   bool empty() const {
     if( isize > 0 )
       return false;
@@ -152,7 +148,7 @@ public:
   }
 
   /** Return an iterator pointing to the first item in the BST (not the root).
-   */ // TODO
+   */ 
   iterator begin() const {
    return BSTIterator<Data>(first(this->root)); 
   }
@@ -175,10 +171,11 @@ private:
   /** Recursive inorder traversal 'helper' function */
 
   /** Inorder traverse BST, print out the data of each node in ascending order.
-      Implementing inorder and deleteAll base on the pseudo code is an easy way to get started.
-   */ // TODO
+    * Implementing inorder and deleteAll base on the pseudo code is an easy way
+    * to get started.
+   */ 
   void inorder(BSTNode<Data>* n) const {
-    if(n == 0 )
+    if( n == 0 )
       return;
     inorder(n->left);
     cout << n->data << endl;
@@ -188,13 +185,13 @@ private:
   /** Find the first element of the BST
    */ 
   static BSTNode<Data>* first(BSTNode<Data>* root) {
-    if(root == 0) return 0;
+    if( root == 0 ) return 0;
     while(root->left != 0) root = root->left;
     return root;
   }
 
   /** do a postorder traversal, deleting nodes
-   */ // TODO
+   */ 
   static void deleteAll(BSTNode<Data>* n) {
     if( n == 0 )
       return;
