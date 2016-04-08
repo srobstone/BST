@@ -92,7 +92,7 @@ int main(int argc, char* argv[])
       getline(in, tmp);
      
       //this will delete the commas from the names of actors 
-      tmp.erase(std::remove(tmp.begin(), tmp.end(), ','), tmp.end());
+      //tmp.erase(std::remove(tmp.begin(), tmp.end(), ','), tmp.end());
 
       name = tmp;
       b.insert(name);       
