@@ -120,12 +120,19 @@ int main(int argc, char* argv[])
       else
         cout << name << " NOT found" << "\n";
 
-      cout << "Search again? (y/n)" << "\n";
+      bool check = true;
 
-      string toCont = "";
-      getline(cin, toCont);
-    
-      if( toCont == "n" )
+      while(check){
+        cout << "Search again? (y/n)" << "\n";
+        string toCont = "";
+        getline(cin, toCont);
+        if(toCont == "n")
+          check = false;
+        else if( toCont == "y" )
+          break; 
+      }
+ 
+      if( check == false )
         break; 
     }  
     
